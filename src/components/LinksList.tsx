@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DownloadSimple, Trash, Copy } from "phosphor-react";
+import { DownloadSimple, Trash, Copy, Link } from "phosphor-react";
 
 import { IconButton } from "./IconButton";
 import { ButtonSecondary } from "./ButtonSecondary";
@@ -65,43 +65,50 @@ export function LinksList() {
         </ButtonSecondary>
       </div>
 
-      <ul className="space-y-4">
-        {links.map((link) => (
-          <li key={link.id} className="border-b border-gray-300 pb-4">
-            <div className="flex justify-between items-center">
-              <div className="flex flex-col">
-                <a
-                  href={`https://${link.originalUrl}`}
-                  className="text-sm text-indigo-700 font-semibold hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {link.shortUrl}
-                </a>
-                <span className="text-xs text-gray-500 truncate">
-                  {link.originalUrl}
-                </span>
-              </div>
+      {links.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 text-gray-500">
+          <Link size={48} className="mb-4" />
+          <span className="text-sm text-center">
+            Ainda não existem links cadastrados
+          </span>
+        </div>
+      ) : (
+        <ul className="space-y-4">
+          {links.map((link) => (
+            <li key={link.id} className="border-b border-gray-300 pb-4">
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col">
+                  <a
+                    href={`https://${link.originalUrl}`}
+                    className="text-sm text-indigo-700 font-semibold hover:underline truncate max-w-[140px] sm:max-w-none"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.shortUrl}
+                  </a>
+                  <span className="text-xs text-gray-500 truncate max-w-[150px] sm:max-w-none">
+                    {link.originalUrl}
+                  </span>
+                </div>
 
-
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500 mr-2">
-                  {link.clicks} acessos
-                </span>
-                <div className="flex items-center gap-2">
-                  <IconButton title="Copiar link" onClick={() => copyLink(link.shortUrl)}>
-                    <Copy size={16} />
-                  </IconButton>
-
-                  <IconButton title="Excluir link" onClick={() => deleteLink(link.id)}>
-                    <Trash size={16} />
-                  </IconButton>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500 mr-2">
+                    {link.clicks} acessos
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <IconButton title="Copiar link" onClick={() => copyLink(link.shortUrl)}>
+                      <Copy size={16} />
+                    </IconButton>
+                    <IconButton title="Excluir link" onClick={() => deleteLink(link.id)}>
+                      <Trash size={16} />
+                    </IconButton>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

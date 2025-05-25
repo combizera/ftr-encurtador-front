@@ -3,7 +3,7 @@ import { ButtonPrimary } from "./ButtonPrimary";
 
 export function NewLinkForm() {
   return (
-    <div className="bg-white rounded-lg shadow p-6 w-full max-w-md">
+    <div className="bg-white w-full rounded-lg shadow p-6 max-w-md mx-auto">
       <h2 className="text-lg font-semibold mb-4">
         Novo link
       </h2>
