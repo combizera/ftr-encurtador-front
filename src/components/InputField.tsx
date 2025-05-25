@@ -1,5 +1,5 @@
-import type { ReactNode, InputHTMLAttributes } from "react";
 import { Warning } from "phosphor-react";
+import type { ReactNode, InputHTMLAttributes } from "react";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;

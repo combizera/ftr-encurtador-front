@@ -1,9 +1,9 @@
-import { DownloadSimple, Trash, Copy } from "phosphor-react";
-import { IconButton } from "./IconButton";
 import { useState } from "react";
+import { DownloadSimple, Trash, Copy } from "phosphor-react";
+
+import { IconButton } from "./IconButton";
 import { ButtonSecondary } from "./ButtonSecondary";
 
-// Define o tipo dos links
 type Link = {
   id: string;
   shortUrl: string;
