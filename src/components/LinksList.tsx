@@ -1,24 +1,100 @@
-import { Link, DownloadSimple } from "phosphor-react";
+import { DownloadSimple, Trash, Copy } from "phosphor-react";
+import { IconButton } from "./IconButton";
+import { useState } from "react";
+
+// Define o tipo dos links
+type Link = {
+  id: string;
+  shortUrl: string;
+  originalUrl: string;
+  clicks: number;
+};
 
 export function LinksList() {
+  const [links, setLinks] = useState<Link[]>([
+    {
+      id: "1",
+      shortUrl: "brev.ly/Portfolio-Dev",
+      originalUrl: "devsite.portfolio.com.br/devname-123456",
+      clicks: 30,
+    },
+    {
+      id: "2",
+      shortUrl: "brev.ly/Linkedin-Profile",
+      originalUrl: "linkedin.com/in/myprofile",
+      clicks: 15,
+    },
+    {
+      id: "3",
+      shortUrl: "brev.ly/Github-Project",
+      originalUrl: "github.com/devname/project-name-v2",
+      clicks: 34,
+    },
+    {
+      id: "4",
+      shortUrl: "brev.ly/Figma-Encurtador-de-Links",
+      originalUrl: "figma.com/design/file/Encurtador-de-Links",
+      clicks: 53,
+    },
+  ]);
+
+  function copyLink(url: string) {
+    navigator.clipboard.writeText(url).then(() => {
+      alert("Link copiado para a área de transferência!");
+    });
+  }
+
+  function deleteLink(id: string) {
+    setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
+  }
+
   return (
     <div className="bg-white rounded-lg shadow p-6 w-full max-w-2xl">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold">
-          Meus links
-        </h2>
+        <h2 className="text-lg font-semibold text-gray-800">Meus links</h2>
         <button className="flex items-center gap-2 text-sm text-gray-600 border px-3 py-1 rounded hover:bg-gray-100">
           <DownloadSimple size={16} />
           Baixar CSV
         </button>
       </div>
 
-      <div className="flex flex-col items-center justify-center text-gray-400 text-sm mt-6">
-        <Link size={32} />
-        <p className="mt-2 uppercase">
-          Ainda não existem links cadastrados
-        </p>
-      </div>
+      <ul className="space-y-4">
+        {links.map((link) => (
+          <li key={link.id} className="border-b border-gray-300 pb-4">
+            <div className="flex justify-between items-center">
+              <div className="flex flex-col">
+                <a
+                  href={`https://${link.originalUrl}`}
+                  className="text-sm text-indigo-700 font-semibold hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.shortUrl}
+                </a>
+                <span className="text-xs text-gray-500 truncate">
+                  {link.originalUrl}
+                </span>
+              </div>
+
+
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500 mr-2">
+                  {link.clicks} acessos
+                </span>
+                <div className="flex items-center gap-2">
+                  <IconButton title="Copiar link" onClick={() => copyLink(link.shortUrl)}>
+                    <Copy size={16} />
+                  </IconButton>
+
+                  <IconButton title="Excluir link" onClick={() => deleteLink(link.id)}>
+                    <Trash size={16} />
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
