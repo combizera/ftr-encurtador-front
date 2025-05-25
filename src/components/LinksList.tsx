@@ -1,6 +1,7 @@
 import { DownloadSimple, Trash, Copy } from "phosphor-react";
 import { IconButton } from "./IconButton";
 import { useState } from "react";
+import { ButtonSecondary } from "./ButtonSecondary";
 
 // Define o tipo dos links
 type Link = {
@@ -48,14 +49,20 @@ export function LinksList() {
     setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id));
   }
 
+  function handleDownloadCsv() {
+    //
+  }
+
   return (
     <div className="bg-white rounded-lg shadow p-6 w-full max-w-2xl">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Meus links</h2>
-        <button className="flex items-center gap-2 text-sm text-gray-600 border px-3 py-1 rounded hover:bg-gray-100">
+        <h2 className="text-lg font-semibold text-gray-800">
+          Meus links
+        </h2>
+        <ButtonSecondary title="Baixar CSV" onClick={handleDownloadCsv}>
           <DownloadSimple size={16} />
           Baixar CSV
-        </button>
+        </ButtonSecondary>
       </div>
 
       <ul className="space-y-4">
